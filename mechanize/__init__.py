@@ -138,6 +138,8 @@ if hasattr(_urllib2, "HTTPSHandler"):
     __all__.append("HTTPSHandler")
 del _urllib2
 
+from _socksipyhandler import SocksiPyHandler
+
 # misc
 from _http import HeadParser
 from _http import XHTMLCompatibleHeadParser

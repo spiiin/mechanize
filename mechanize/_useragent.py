@@ -19,6 +19,7 @@ import _opener
 import _response
 import _sockettimeout
 import _urllib2
+import _socksipyhandler
 
 
 class UserAgentBase(_opener.OpenerDirector):
@@ -70,6 +71,7 @@ class UserAgentBase(_opener.OpenerDirector):
         "_proxy_digestauth": _urllib2.ProxyDigestAuthHandler,
         "_robots": _urllib2.HTTPRobotRulesProcessor,
         "_gzip": _gzip.HTTPGzipProcessor,  # experimental!
+        "_sock_proxy" : _socksipyhandler.SocksiPyHandler,
 
         # debug handlers
         "_debug_redirect": _urllib2.HTTPRedirectDebugProcessor,
@@ -166,6 +168,9 @@ class UserAgentBase(_opener.OpenerDirector):
         """Set a mechanize.CookieJar, or None."""
         self._set_handler("_cookies", obj=cookiejar)
 
+    def set_socks_proxie(self, proxytype, proxyaddr="127.0.0.1", proxyport = None, rdns = True, username = None, password = None):
+        self._set_handler("_sock_proxy", True, constructor_args=(proxytype, proxyaddr, proxyport, rdns, username, password))
+       
     # XXX could use Greg Stein's httpx for some of this instead?
     # or httplib2??
     def set_proxies(self, proxies=None, proxy_bypass=None):
